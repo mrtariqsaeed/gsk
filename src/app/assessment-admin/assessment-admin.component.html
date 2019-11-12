@@ -1,0 +1,50 @@
+<section style="min-height:500px;padding-top:0!important;padding-bottom: 50px">
+        <mat-grid-list cols='2'>
+            <mat-grid-tile>
+                <div class="card" *ngIf="currentEmp">
+                    <h2>{{ currentEmp.name }}</h2>
+                    <mat-list>
+                        <mat-list-item>
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>MUD ID</h3>
+                            <p matLine>{{ currentEmp.mud_id }} </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>Hiring Date</h3>
+                            <p matLine>{{ currentEmp.hiring_date }}</p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>FLSL</h3>
+                            <p matLine>{{ currentEmp.flsl }} </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>SLSL</h3>
+                            <p matLine>{{ currentEmp.slsl }} </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>Office/City</h3>
+                            <p matLine>{{ currentEmp.office }} </p>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="card"
+                    style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;"
+                    id="formPS">
+                    <h3 class="cardTitle">Assessors</h3>
+                    <button mat-flat-button color="primary" (click)="nextEmp()">Next</button>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    
+        <ng-template #wait>
+            <div class="card" style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;">
+                <h1 class="cardTitle">Wait for next assessment...</h1>
+            </div>
+        </ng-template>
+    </section>

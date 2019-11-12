@@ -1,0 +1,49 @@
+<section style="min-height:500px;padding-top:0!important;padding-bottom: 50px">
+
+    <div class="card" style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;" id="formPS">
+      <h3 class="cardTitle" >Login</h3>
+      <mat-vertical-stepper #stepper [selectedIndex]="selectedIndex" (selectionChange)="stepSelected($event)">
+        <mat-step>
+            <ng-template matStepLabel>Devision</ng-template>
+            <mat-form-field style="width:100%">
+                <mat-select [(ngModel)]="typeID" (selectionChange)="getAssessors()">
+                    <mat-option *ngFor="let type of types" [value]="type.id">{{ type.type }}</mat-option>
+                </mat-select>          
+            </mat-form-field>
+
+            <div>
+                <button mat-stroked-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Name</ng-template>
+          <mat-form-field style="width:100%">
+            <mat-select [(ngModel)]="assessorID" (selectionChange)="getAssessors()">
+                <mat-option *ngFor="let assessor of assessors" [value]="assessor.id">{{ assessor.name }} | {{ assessor.mud_id }}</mat-option>
+            </mat-select>          
+          </mat-form-field>
+
+          <div>
+              <button mat-stroked-button (click)="nextStep()">Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Disclaimer</ng-template>
+
+          <div style="font-size: 14px;">
+            <b style="color: #666;">I hereby acknowledge that:</b><br><br>
+              <li>I have not been notified of the stakeholder criteria/questions before the start of this feedback session</li>
+              <li>I fully understand the automated process of this stakeholder feedback session and fully aware of my responsibilities and role as explained at the beginning of this session</li>
+              <li>I have not discussed the rating I am giving to any employee who is subject of this process with others in the room</li>
+              <li>The rating I provided has not been influenced by anyone or anything other than the objective assessment of the employee subject of this evaluation</li>
+              <li>I will not discuss the rating I provided following this exercise with anyone</li>
+            <button mat-flat-button color='primary' (click)="agree()" style="margin-top:20px;">Agree & Enter</button>
+          </div>
+        </mat-step>
+
+      </mat-vertical-stepper>
+    </div>
+
+</section>

@@ -1,0 +1,37 @@
+<section style="min-height:500px;padding-top:0!important;padding-bottom: 50px">
+
+    <div class="card" style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;" id="formPS">
+      <h3 class="cardTitle" >Assessment Setup</h3>
+      <mat-vertical-stepper #stepper [selectedIndex]="selectedIndex" *ngIf='teams'>
+        <mat-step>
+            <ng-template matStepLabel>Team</ng-template>
+            <mat-form-field style="width:100%">
+                <mat-select [(ngModel)]="teamID">
+                    <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
+                </mat-select>          
+            </mat-form-field>
+
+            <div>
+                <button mat-stroked-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Title</ng-template>
+          <mat-form-field style="width:100%">
+            <mat-select [(ngModel)]="data.emp_type">
+                <mat-option value='sll'>Choose</mat-option>
+                <mat-option value='mr'>MR</mat-option>
+                <mat-option value='flsl'>FLSL</mat-option>
+            </mat-select>          
+          </mat-form-field>
+
+          <div>
+              <button mat-stroked-button (click)="startAssessment()">Next</button>
+          </div>
+        </mat-step>
+
+      </mat-vertical-stepper>
+    </div>
+
+</section>
