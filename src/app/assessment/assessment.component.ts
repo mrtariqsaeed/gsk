@@ -60,7 +60,7 @@ export class AssessmentComponent implements OnInit {
 
     this.review.emp_id = this.emp_id;
     this.review.emp_type = this.currentService.currentEmpType;
-    this.review.assessor_id = this.currentService.currentAssessorID;
+    this.review.assessor_id = Number(localStorage.getItem("assessorID"));
     this.review.a = Number(this.a);
     this.review.b = Number(this.b);
     this.review.c = Number(this.c);

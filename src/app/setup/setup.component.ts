@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class SetupComponent implements OnInit {
   teams: Team[];
   teamID = '1';
-  data = {team_id: 1, emp_id: 1, emp_type: 'sll'};
+  data = {team_id: 1, emp_id: 1, emp_type: 'mr'};
 
   constructor(public currentService: CurrentService, public teamsService: TeamsService, public router: Router) { }
 

@@ -12,7 +12,6 @@ import { CurrentService } from 'src/services/current.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  selectedIndex = 0;
   types: Type[];
   assessors: Assessor[];
   typeID = "1";
@@ -40,18 +39,22 @@ export class LoginComponent implements OnInit {
       if(this.assessors.length > 0)
       {
         this.assessors = data;
-        this.assessorID = String(this.assessors[0].id);
       }
     }, err => console.log(err));
   }
 
-  stepSelected(value: any){
-    this.selectedIndex = value.selectedIndex;
-  }
-
   agree()
   {
-    this.currentService.currentAssessorID = Number(this.assessorID);
-    this.router.navigate(['/assessment']);
+    localStorage.setItem("assessorID", this.assessorID);
+    let assessor = this.assessors.find(x => x.id == Number(this.assessorID));
+    if(assessor)
+    {
+      this.assessorsService.assessorLogin(assessor).subscribe(res => {
+        this.currentService.getCurrent();
+        this.router.navigate(['/assessment']);
+      }, err => console.log(err));
+    } else {
+      console.log("Assessor Not Found!");
+    }
   }
 }

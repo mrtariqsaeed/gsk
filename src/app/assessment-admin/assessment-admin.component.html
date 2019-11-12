@@ -14,15 +14,25 @@
                             <h3 matLine>Hiring Date</h3>
                             <p matLine>{{ currentEmp.hiring_date }}</p>
                         </mat-list-item>
-                        <mat-list-item>
+                        <mat-list-item *ngIf="currentEmpType == 'mr'">
                             <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
                             <h3 matLine>FLSL</h3>
                             <p matLine>{{ currentEmp.flsl }} </p>
                         </mat-list-item>
-                        <mat-list-item>
+                        <mat-list-item *ngIf="currentEmpType == 'mr' || currentEmpType == 'flsl'">
                             <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
                             <h3 matLine>SLSL</h3>
                             <p matLine>{{ currentEmp.slsl }} </p>
+                        </mat-list-item>
+                        <mat-list-item *ngIf="currentEmpType == 'sll' || currentEmpType == 'flsl'">
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>SD</h3>
+                            <p matLine>{{ currentEmp.sd }} </p>
+                        </mat-list-item>
+                        <mat-list-item *ngIf="currentEmpType == 'sll'">
+                            <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                            <h3 matLine>cm</h3>
+                            <p matLine>{{ currentEmp.cm }} </p>
                         </mat-list-item>
                         <mat-list-item>
                             <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
@@ -33,11 +43,19 @@
                 </div>
             </mat-grid-tile>
             <mat-grid-tile>
-                <div class="card"
-                    style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;"
-                    id="formPS">
-                    <h3 class="cardTitle">Assessors</h3>
-                    <button mat-flat-button color="primary" (click)="nextEmp()">Next</button>
+                <div class="card" style="min-height: 400px;">
+                    <h2>Assessors</h2>
+                    
+                    <mat-toolbar style="margin-bottom: 10px;" *ngFor="let assessor of currentAssessors">
+                        <mat-toolbar-row style="color: #333;">
+                            <mat-icon class="example-icon" *ngIf="assessor.status == 1">done</mat-icon>
+                            <span>{{ assessor.name }}</span>
+                            <span class="example-spacer"></span>
+                            <mat-icon class="example-icon">block</mat-icon>
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+                    
+                    <button mat-flat-button color="primary" (click)="nextEmp()" style="margin-top: 30px;" *ngIf="next">Next</button>
                 </div>
             </mat-grid-tile>
         </mat-grid-list>

@@ -12,7 +12,9 @@ export const environment = {
   updateCurrentAPI: "http://localhost:8080/gsk/updateCurrent.php",
   teamsAPI: "http://localhost:8080/gsk/teams.php",
   currentIDsAPI: "http://localhost:8080/gsk/currentIDs.php",
-  nextEmpAPI: "http://localhost:8080/gsk/nextEmp.php"
+  nextEmpAPI: "http://localhost:8080/gsk/nextEmp.php",
+  assessorLoginAPI: "http://localhost:8080/gsk/assessorLogin.php",
+  currentAssessorsAPI: "http://localhost:8080/gsk/currentAssessors.php"
 };
 
 /*
