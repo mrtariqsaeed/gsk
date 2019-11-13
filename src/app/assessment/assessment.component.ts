@@ -16,6 +16,7 @@ import { ReviewService } from 'src/services/review.service';
 export class AssessmentComponent implements OnInit {
   current: Current;
   currentEmp: any;
+  currentEmpType: string;
   show$ = new BehaviorSubject<boolean>(false);
   show: boolean = false;
   currentInterval = interval(2000);
@@ -31,7 +32,7 @@ export class AssessmentComponent implements OnInit {
 
   ngOnInit() {
     this.currentService.current$.subscribe((data: Current) => {
-      console.log(data);
+      this.currentEmpType = data.emp_type;
       if(data.emp_id == 0){
         this.show = false;
         this.currentEmp = undefined;
@@ -42,10 +43,8 @@ export class AssessmentComponent implements OnInit {
         this.currentService.getCurrentEmp().subscribe(data => {
           if(data) {
             this.currentEmp = data;
-            console.log(this.currentEmp);
           }
         }, err => console.log(err));
-        console.log(this.currentEmp);
         this.sub1.unsubscribe();
       }else if(data.emp_id == 1000) {
         this.router.navigate(['/finish']);

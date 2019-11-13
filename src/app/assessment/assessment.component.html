@@ -15,15 +15,25 @@
                         <h3 matLine>Hiring Date</h3>
                         <p matLine>{{ currentEmp.hiring_date }}</p>
                     </mat-list-item>
-                    <mat-list-item>
+                    <mat-list-item *ngIf="currentEmpType == 'mr'">
                         <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
                         <h3 matLine>FLSL</h3>
                         <p matLine>{{ currentEmp.flsl }} </p>
                     </mat-list-item>
-                    <mat-list-item>
+                    <mat-list-item *ngIf="currentEmpType == 'mr' || currentEmpType == 'flsl'">
                         <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
                         <h3 matLine>SLSL</h3>
                         <p matLine>{{ currentEmp.slsl }} </p>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="currentEmpType == 'sll' || currentEmpType == 'flsl'">
+                        <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                        <h3 matLine>SD</h3>
+                        <p matLine>{{ currentEmp.sd }} </p>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="currentEmpType == 'sll'">
+                        <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
+                        <h3 matLine>cm</h3>
+                        <p matLine>{{ currentEmp.cm }} </p>
                     </mat-list-item>
                     <mat-list-item>
                         <mat-icon matListIcon>keyboard_arrow_right</mat-icon>
@@ -35,34 +45,34 @@
         </mat-grid-tile>
         <mat-grid-tile>
             <div class="card">
-                <h2>Fit for the future:</h2>
-                <mat-radio-group aria-label="Select an option" [(ngModel)]='a'>
-                    <mat-radio-button color="primary" value="0">1 "Lowest" </mat-radio-button>
-                    <mat-radio-button color="primary" value="20">2</mat-radio-button>
-                    <mat-radio-button color="primary" value="60">3</mat-radio-button>
-                    <mat-radio-button color="primary" value="80">4</mat-radio-button>
-                    <mat-radio-button color="primary" value="100">5 "Highest"</mat-radio-button>
-                </mat-radio-group>
-                <br><hr>
-                <h2>Impact on GSK Culture:</h2>
-                <mat-radio-group aria-label="Select an option" [(ngModel)]='b'>
-                    <mat-radio-button color="primary" value="0">1 "Lowest" </mat-radio-button>
-                    <mat-radio-button color="primary" value="20">2</mat-radio-button>
-                    <mat-radio-button color="primary" value="60">3</mat-radio-button>
-                    <mat-radio-button color="primary" value="80">4</mat-radio-button>
-                    <mat-radio-button color="primary" value="100">5 "Highest"</mat-radio-button>
-                </mat-radio-group>
-                <br><hr>
-                <h2>Learning agility:</h2>
-                <mat-radio-group aria-label="Select an option" [(ngModel)]='c'>
-                    <mat-radio-button color="primary" value="0">1 "Lowest" </mat-radio-button>
-                    <mat-radio-button color="primary" value="20">2</mat-radio-button>
-                    <mat-radio-button color="primary" value="60">3</mat-radio-button>
-                    <mat-radio-button color="primary" value="80">4</mat-radio-button>
-                    <mat-radio-button color="primary" value="100">5 "Highest"</mat-radio-button>
-                </mat-radio-group>
+                <h3>Fit for the future:</h3>
+                <mat-button-toggle-group style="margin-bottom: 50px;" aria-label="Select an option" [(ngModel)]='a'>
+                    <mat-button-toggle value="0">1</mat-button-toggle>
+                    <mat-button-toggle value="20">2</mat-button-toggle>
+                    <mat-button-toggle value="60">3</mat-button-toggle>
+                    <mat-button-toggle value="80">4</mat-button-toggle>
+                    <mat-button-toggle value="100">5</mat-button-toggle>
+                </mat-button-toggle-group>
+                <br>
+                <h3>Impact on GSK Culture:</h3>
+                <mat-button-toggle-group style="margin-bottom: 50px;" aria-label="Select an option" [(ngModel)]='b'>
+                    <mat-button-toggle value="0">1</mat-button-toggle>
+                    <mat-button-toggle value="20">2</mat-button-toggle>
+                    <mat-button-toggle value="60">3</mat-button-toggle>
+                    <mat-button-toggle value="80">4</mat-button-toggle>
+                    <mat-button-toggle value="100">5</mat-button-toggle>
+                </mat-button-toggle-group>
+                <br>
+                <h3>Learning agility:</h3>
+                <mat-button-toggle-group aria-label="Select an option" [(ngModel)]='c'>
+                    <mat-button-toggle value="0">1</mat-button-toggle>
+                    <mat-button-toggle value="20">2</mat-button-toggle>
+                    <mat-button-toggle value="60">3</mat-button-toggle>
+                    <mat-button-toggle value="80">4</mat-button-toggle>
+                    <mat-button-toggle value="100">5</mat-button-toggle>
+                </mat-button-toggle-group>
                 <br><br><br><br>
-                <button mat-flat-button color="primary" (click)="submitReview()">Submit Review</button>
+                <button mat-flat-button (click)="submitReview()" color="primary">Submit Review</button> <button mat-flat-button (click)="submitReview()" color="primary">SKip</button>
             </div>
         </mat-grid-tile>
     </mat-grid-list>

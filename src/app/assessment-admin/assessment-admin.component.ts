@@ -99,7 +99,7 @@ export class AssessmentAdminComponent implements OnInit {
         this.currentService.getEmpByID(this.currentIDs[this.index]).subscribe(data => {
           if (data) {
             this.currentEmp = data;
-            this.assessorsService.currentAssessors();
+            this.sub1 = this.currentInterval.subscribe(val => this.assessorsService.currentAssessors());
           }
         });
       });
