@@ -62,4 +62,8 @@ export class CurrentService {
   {
     return this.http.post(environment.nextEmpAPI, {"id": id});
   }
+
+  revoteFN(id: number): Observable<any> {
+    return this.http.post(environment.revoteAPI, {assessor_id: id, emp_id: this.currentEmpID, emp_type: this.currentEmpType});
+  }
 }
