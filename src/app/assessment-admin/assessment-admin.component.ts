@@ -106,6 +106,10 @@ export class AssessmentAdminComponent implements OnInit {
     }
   }
 
+  revoteFN(id: number) {
+    console.log(id);
+  }
+
   ngOnDestroy() {
     this.sub1.unsubscribe();
   }

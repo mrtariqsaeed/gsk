@@ -14,6 +14,7 @@ export class CurrentService {
   show = false;
   currentEmpID = 0;
   currentEmpType = 'mr';
+  currentTeamID = 1;
   currentAssessorID: number;
 
   constructor(public http: HttpClient) {
@@ -25,6 +26,7 @@ export class CurrentService {
       if(data.emp_id != this.currentEmpID){
         this.currentEmpID = data.emp_id;
         this.currentEmpType = data.emp_type;
+        this.currentTeamID = data.team_id;
         this.current$.next(data);
       }
     });
@@ -45,7 +47,7 @@ export class CurrentService {
   {
     if(this.currentEmpType)
     {
-      return this.http.post<number[]>(environment.currentIDsAPI, {"emp_type": this.currentEmpType});
+      return this.http.post<number[]>(environment.currentIDsAPI, {"emp_type": this.currentEmpType, "team_id": this.currentTeamID});
     }else{
       return of([]);
     }

@@ -106,7 +106,10 @@ button{
 }
 h2 {
   color: #222;
-  font-weight:200;
+  font-weight:300;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 50px;
 }
 h1, h3, h4, h5{
   color:#fc601e;
