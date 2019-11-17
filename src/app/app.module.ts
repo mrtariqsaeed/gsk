@@ -12,6 +12,8 @@ import { AssessmentAdminComponent } from './assessment-admin/assessment-admin.co
 import { FinishComponent } from './finish/finish.component';
 import { SetupComponent } from './setup/setup.component';
 import { FinishAdminComponent } from './finish-admin/finish-admin.component';
+import { AdminComponent } from './admin/admin.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FinishAdminComponent } from './finish-admin/finish-admin.component';
     AssessmentAdminComponent,
     FinishComponent,
     SetupComponent,
-    FinishAdminComponent
+    FinishAdminComponent,
+    AdminComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

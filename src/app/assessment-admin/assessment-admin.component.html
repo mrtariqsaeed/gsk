@@ -1,7 +1,7 @@
 <section style="min-height:500px;padding-top:0!important;padding-bottom: 50px">
         <mat-grid-list cols='2'>
             <mat-grid-tile>
-                <div class="card" *ngIf="currentEmp">
+                <div class="card" *ngIf="currentEmp && currentIDs">
                     <h1 style="text-align: center;color: #222;font-size: 50px;font-weight: 100;font-family: 'Roboto', sans-serif;margin-bottom: 20px;">{{ index + 1 }} / {{ currentIDs.length }} </h1>
                     <h2 style="text-align: center;">{{ currentEmp.name }}</h2>
                     <mat-list>
@@ -52,8 +52,8 @@
                             <mat-icon class="example-icon" *ngIf="assessor.status == 1">done</mat-icon>
                             <span style="font-weight: 300;">{{ assessor.name }}</span>
                             <span class="example-spacer"></span>
-                            <mat-icon class="example-icon" *ngIf="assessor.status == 1" (click)="revoteFN(assessor.assessor_id)">replay</mat-icon>
-                            <mat-icon class="example-icon">block</mat-icon>
+                            <button mat-icon-button><mat-icon class="example-icon" *ngIf="assessor.status == 1" (click)="revoteFN(assessor.assessor_id)">replay</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="example-icon" (click)="deleteAssessorFN(assessor.assessor_id)">close</mat-icon></button>
                         </mat-toolbar-row>
                     </mat-toolbar>
                     

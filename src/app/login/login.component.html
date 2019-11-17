@@ -1,7 +1,7 @@
 <section style="min-height:500px;padding-top:0!important;padding-bottom: 50px">
 
-    <div class="card" style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;" id="formPS">
-      <h3 class="cardTitle" >Login</h3>
+    <div class="card">
+      <h2>Login</h2>
       <mat-vertical-stepper>
         <mat-step>
             <ng-template matStepLabel>Devision</ng-template>
@@ -18,9 +18,9 @@
 
         <mat-step>
           <ng-template matStepLabel>Name</ng-template>
-          <mat-form-field style="width:100%">
+          <mat-form-field style="width:100%" *ngIf="assessors">
             <mat-select [(ngModel)]="assessorID" (selectionChange)="getAssessors()">
-                <mat-option *ngFor="let assessor of assessors" [value]="assessor.id">{{ assessor.name }} | {{ assessor.mud_id }}</mat-option>
+                <mat-option *ngFor="let assessor of assessors" [value]=assessor.id>{{ assessor.name }} | {{ assessor.mud_id }}</mat-option>
             </mat-select>          
           </mat-form-field>
 

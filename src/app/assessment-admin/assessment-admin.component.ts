@@ -36,7 +36,6 @@ export class AssessmentAdminComponent implements OnInit {
       } else {
         this.currentEmpType = this.currentService.currentEmpType;
         this.getCurrentIDs();
-        this.getCurrentEmp();
         this.getAssessors();
       }
     }, 1000);
@@ -56,7 +55,12 @@ export class AssessmentAdminComponent implements OnInit {
     this.currentService.getCurrentIDs().subscribe((data: number[]) => {
       if (data) {
         this.currentIDs = data;
-        this.index = data.indexOf(Number(this.currentService.currentEmpID));
+        this.index = data.indexOf(this.currentService.currentEmpID);
+        if(this.index < 0) {
+          this.nextEmp();
+        }else {
+          this.getCurrentEmp();
+        }
       }
     });
   }
@@ -95,6 +99,7 @@ export class AssessmentAdminComponent implements OnInit {
       });
     } else {
       this.index++;
+      console.log("Index = " + this.index);
       this.currentService.nextEmp(this.currentIDs[this.index]).subscribe(res => {
         this.currentService.getEmpByID(this.currentIDs[this.index]).subscribe(data => {
           if (data) {
@@ -107,8 +112,14 @@ export class AssessmentAdminComponent implements OnInit {
   }
 
   revoteFN(id: number) {
-    console.log(id);
-    
+    this.next = false;
+    this.currentService.revoteFN(id).subscribe(res => {
+      this.sub1 = this.currentInterval.subscribe(val => this.assessorsService.currentAssessors());
+    });
+  }
+
+  deleteAssessorFN(id: number) {
+    this.assessorsService.deleteAssessorFN(id).subscribe(res => console.log("Delete Assessor: ", res), err => console.log("Delete Assessor: ", err));
   }
 
   ngOnDestroy() {

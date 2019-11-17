@@ -85,7 +85,8 @@ button{
 
 .card{
   width: 90%;
-  max-width:450px;
+  max-width:500px;
+  min-height: 400px;
   margin: 50px auto;
   padding:20px;
   background: #fff;
@@ -126,6 +127,12 @@ hr{
   display: block;
   margin-bottom: 30px;
   margin-top: 30px;
+}
+
+.page-title{
+  display: block;
+  margin: 50px auto 0 auto ;
+  font-size: 30px;
 }
 
 /* button{

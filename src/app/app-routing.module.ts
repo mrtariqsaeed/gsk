@@ -6,6 +6,7 @@ import { AssessmentAdminComponent } from './assessment-admin/assessment-admin.co
 import { FinishComponent } from './finish/finish.component';
 import { SetupComponent } from './setup/setup.component';
 import { FinishAdminComponent } from './finish-admin/finish-admin.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'assessment-admin', component: AssessmentAdminComponent},
   {path: 'finish', component: FinishComponent},
   {path: 'finish-admin', component: FinishAdminComponent},
-  {path: 'setup', component: SetupComponent}
+  {path: 'setup', component: SetupComponent},
+  {path: 'admin', component: AdminComponent}
 ];
 
 @NgModule({

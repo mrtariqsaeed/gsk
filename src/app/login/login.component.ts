@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   types: Type[];
   assessors: Assessor[];
   typeID = "1";
-  assessorID: string;
+  assessorID: string = '1';
 
   constructor(public typesService: TypesService, public assessorsService: AssessorsService, public router: Router, public currentService: CurrentService) {}
 
@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit {
         this.assessors = data;
       }
     }, err => console.log(err));
+  }
+
+  strID(id: number): string {
+    return String(id);
   }
 
   agree()

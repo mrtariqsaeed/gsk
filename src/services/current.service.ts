@@ -23,6 +23,7 @@ export class CurrentService {
 
   getCurrent() {
     this.http.get<Current>(environment.currentAPI).subscribe((data: Current) => {
+      console.log("Current -> ", data);
       if(data.emp_id != this.currentEmpID){
         this.currentEmpID = data.emp_id;
         this.currentEmpType = data.emp_type;
@@ -30,7 +31,6 @@ export class CurrentService {
         this.current$.next(data);
       }
     });
-    
   }
 
   getCurrentEmp(): any
@@ -63,7 +63,16 @@ export class CurrentService {
     return this.http.post(environment.nextEmpAPI, {"id": id});
   }
 
+  currentStatusFN(id: number): Observable<any> {
+    return this.http.post<any>(environment.statusAPI, {assessor_id: id});
+  }
+
   revoteFN(id: number): Observable<any> {
+    console.log(id + "  " + this.currentEmpID + " " + this.currentEmpType);
     return this.http.post(environment.revoteAPI, {assessor_id: id, emp_id: this.currentEmpID, emp_type: this.currentEmpType});
+  }
+
+  resetFN(): Observable<any> {
+    return this.http.post(environment.resetAPI, {});
   }
 }

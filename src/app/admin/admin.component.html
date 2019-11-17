@@ -1,0 +1,29 @@
+<section style="min-height:500px;padding-top:0!important;padding-bottom: 50px">
+    <mat-grid-list cols='2' style="margin-top: 0;">
+        <mat-grid-tile>
+            <div class="card">
+                <h2>Shortcuts</h2>
+
+                <button mat-flat-button class="shortcut" color="primary" (click)="newAssessmentFN()">New Assessment</button><br>
+                <button mat-stroked-button class="shortcut" color="primary" (click)="closeAssessments()">Close All Assessments</button><br>
+                <button mat-stroked-button class="shortcut" color="primary" (click)="deleteAllAssessorsFN()">Logout All Assessors</button><br>
+                <button mat-stroked-button class="shortcut" color="primary">Extract Reports</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="card">
+                <h2>Logged In Assessors</h2>
+                
+                <mat-toolbar style="margin-bottom: 10px;" *ngFor="let assessor of currentAssessors">
+                    <mat-toolbar-row style="color: #333;">
+                        <span style="font-weight: 300;">{{ assessor.name }}</span>
+                        <span class="example-spacer"></span>
+                        <button mat-icon-button><mat-icon class="example-icon" (click)="deleteAssessorFN(assessor.assessor_id)">close</mat-icon></button>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+                
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</section>

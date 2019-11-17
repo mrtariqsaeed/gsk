@@ -72,14 +72,15 @@
                     <mat-button-toggle value="100">5</mat-button-toggle>
                 </mat-button-toggle-group>
                 <br><br><br><br>
-                <button mat-flat-button (click)="submitReview()" color="primary">Submit Review</button> <button mat-flat-button (click)="submitReview()" color="primary">SKip</button>
+                <button mat-flat-button (click)="submitReview()" color="primary" style="margin-right: 30px;" *ngIf="a && b && c">Submit Review</button> 
+                <button mat-stroked-button (click)="skipReviewFN()" color="primary">Skip</button>
             </div>
         </mat-grid-tile>
     </mat-grid-list>
 
     <ng-template #wait>
-        <div class="card" style="width: 90%;max-width:400px;margin: 50px auto;padding:100px 20px 20px 20px;position:relative;">
-            <h1 class="cardTitle">Wait for next assessment...</h1>
+        <div class="card">
+            <h2>Wait for next assessment...</h2>
         </div>
     </ng-template>
 </section>

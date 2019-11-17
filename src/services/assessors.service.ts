@@ -8,6 +8,7 @@ import { CurrentAssessor } from '../models/currentAssessorInterface';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AssessorsService {
   currentAssessors$ = new BehaviorSubject<CurrentAssessor[]>([]);
   constructor(public http: HttpClient) {}
@@ -34,4 +35,11 @@ export class AssessorsService {
     });
   }
 
+  deleteAllAssessors(): Observable<any> {
+    return this.http.post(environment.deleteAllAssessorsAPI, {});
+  }
+
+  deleteAssessorFN(id: number): Observable<any> {
+    return this.http.post(environment.deleteAssessorAPI, {assessor_id: id});
+  }
 }

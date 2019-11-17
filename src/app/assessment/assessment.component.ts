@@ -20,58 +20,110 @@ export class AssessmentComponent implements OnInit {
   show$ = new BehaviorSubject<boolean>(false);
   show: boolean = false;
   currentInterval = interval(2000);
-  sub1: Subscription = new Subscription();
-  emp_id = 0;
-  a = '0';
-  b = '0';
-  c = '0';
+  statusInterval = interval(2000);
 
+  sub1: Subscription = new Subscription();
+  sub2: Subscription = new Subscription();
+
+  currentEmpID = 0;
+
+  a: string;
+  b: string;
+  c: string;
+
+  status: Number;
   review = {} as Review;
 
   constructor(public currentService: CurrentService, public http: HttpClient, public router: Router, public reviewService: ReviewService) { }
 
   ngOnInit() {
-    this.currentService.current$.subscribe((data: Current) => {
-      this.currentEmpType = data.emp_type;
-      if(data.emp_id == 0){
-        this.show = false;
-        this.currentEmp = undefined;
-        this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
-      }else if(data.emp_id != this.emp_id && data.emp_id != 1000){
-        this.show = true;
-        this.emp_id = data.emp_id;
-        this.currentService.getCurrentEmp().subscribe(data => {
-          if(data) {
-            this.currentEmp = data;
-          }
-        }, err => console.log(err));
-        this.sub1.unsubscribe();
-      }else if(data.emp_id == 1000) {
-        this.router.navigate(['/finish']);
+    this.sub2 = this.statusInterval.subscribe(val => this.currentStatusFN());
+
+    setTimeout(() => {
+      this.currentService.current$.subscribe((data: Current) => {
+        console.log("Current$ -> ", data);
+        this.currentEmpType = data.emp_type;
+        this.currentEmpID = data.emp_id;
+  
+        if (data.emp_id == 0) 
+        {
+          console.log('1');
+          this.show = false;
+          this.currentEmp = undefined;
+          this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
+        }
+        else if (data.emp_id != 0 && data.emp_id != 1000 && this.status == 0) 
+        {
+          console.log('2');
+          this.show = true;
+          this.currentService.getCurrentEmp().subscribe(data => {
+            if (data) {
+              this.currentEmp = data;
+            }
+          }, err => console.log(err));
+          this.sub1.unsubscribe();
+        } 
+        else if (data.emp_id == 1000) 
+        {
+          console.log('3');
+          this.router.navigate(['/finish']);
+        }
+      });
+    }, 1000);
+
+  }
+
+  currentStatusFN() {
+    this.currentService.currentStatusFN(Number(localStorage.getItem("assessorID"))).subscribe(res => {
+      console.log("Status -> ", res);
+      if (res) this.status = Number(res.status);
+      if(this.status == 0) {
+        if (this.currentEmpID != 0 && this.currentEmpID != 1000) {
+          this.show = true;
+          this.currentService.getCurrentEmp().subscribe(data => {
+            if (data) {
+              this.currentEmp = data;
+            }
+          }, err => console.log(err));
+          this.sub1.unsubscribe();
+        }
       }
+    }, err => {
+      console.log("Status -> ", err);
+      localStorage.clear();
+      this.router.navigate(['/login']);
     });
   }
 
-  submitReview()
-  {
+  submitReview() {
     this.show = false;
-    this.currentEmp = false;
+    this.currentEmp = undefined;
 
-    this.review.emp_id = this.emp_id;
+    this.review.emp_id = this.currentEmpID;
     this.review.emp_type = this.currentService.currentEmpType;
     this.review.assessor_id = Number(localStorage.getItem("assessorID"));
     this.review.a = Number(this.a);
     this.review.b = Number(this.b);
     this.review.c = Number(this.c);
-
+    console.log(this.review);
     this.reviewService.submitReview(this.review).subscribe(res => {
+      this.a = this.b = this.c = undefined;
       this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
     }, err => console.log(err));
   }
 
-  ngOnDestroy()
-  {
+  skipReviewFN() {
+    this.show = false;
+    this.currentEmp = undefined;
+
+    this.reviewService.skipReviewFN(Number(localStorage.getItem("assessorID"))).subscribe(res => {
+      this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
+    }, err => console.log(err));
+  }
+
+  ngOnDestroy() {
     this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
 }

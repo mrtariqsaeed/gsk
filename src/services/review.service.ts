@@ -16,4 +16,8 @@ export class ReviewService {
     console.log(review);
     return this.http.post(environment.reviewAPI, review);
   }
+
+  skipReviewFN(id: number): Observable<any> {
+    return this.http.post(environment.skipAPI, {assessor_id: id})
+  }
 }
