@@ -101,13 +101,14 @@ export class AssessmentAdminComponent implements OnInit {
       this.index++;
       console.log("Index = " + this.index);
       this.currentService.nextEmp(this.currentIDs[this.index]).subscribe(res => {
+        console.log("next -> ", res);
         this.currentService.getEmpByID(this.currentIDs[this.index]).subscribe(data => {
           if (data) {
             this.currentEmp = data;
             this.sub1 = this.currentInterval.subscribe(val => this.assessorsService.currentAssessors());
           }
         });
-      });
+      }, err => console.log("next -> ", err));
     }
   }
 

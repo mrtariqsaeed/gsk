@@ -35,6 +35,7 @@ export class CurrentService {
 
   getCurrentEmp(): any
   {
+    console.log(this.currentEmpID + "  " + this.currentEmpType);
     return this.http.post(environment.empDataAPI, {"id": this.currentEmpID, "emp_type": this.currentEmpType});
   }
 

@@ -19,8 +19,8 @@ export class AssessmentComponent implements OnInit {
   currentEmpType: string;
   show$ = new BehaviorSubject<boolean>(false);
   show: boolean = false;
-  currentInterval = interval(2000);
-  statusInterval = interval(2000);
+  currentInterval = interval(3000);
+  statusInterval = interval(3000);
 
   sub1: Subscription = new Subscription();
   sub2: Subscription = new Subscription();
@@ -38,30 +38,30 @@ export class AssessmentComponent implements OnInit {
 
   ngOnInit() {
     this.sub2 = this.statusInterval.subscribe(val => this.currentStatusFN());
+    this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
 
     setTimeout(() => {
       this.currentService.current$.subscribe((data: Current) => {
         console.log("Current$ -> ", data);
         this.currentEmpType = data.emp_type;
-        this.currentEmpID = data.emp_id;
+        
   
         if (data.emp_id == 0) 
         {
           console.log('1');
           this.show = false;
-          this.currentEmp = undefined;
-          this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
+          this.currentEmpID = data.emp_id;
         }
-        else if (data.emp_id != 0 && data.emp_id != 1000 && this.status == 0) 
+        else if (data.emp_id != 0 && data.emp_id != 1000 && data.emp_id != this.currentEmpID) 
         {
-          console.log('2');
-          this.show = true;
+          console.log('2 -> ', data);
+          this.currentEmpID = data.emp_id;
+          
           this.currentService.getCurrentEmp().subscribe(data => {
             if (data) {
               this.currentEmp = data;
             }
           }, err => console.log(err));
-          this.sub1.unsubscribe();
         } 
         else if (data.emp_id == 1000) 
         {
@@ -77,15 +77,12 @@ export class AssessmentComponent implements OnInit {
     this.currentService.currentStatusFN(Number(localStorage.getItem("assessorID"))).subscribe(res => {
       console.log("Status -> ", res);
       if (res) this.status = Number(res.status);
-      if(this.status == 0) {
+
+      if (this.status == 0) {
+        
         if (this.currentEmpID != 0 && this.currentEmpID != 1000) {
+          console.log("Zero Status!");
           this.show = true;
-          this.currentService.getCurrentEmp().subscribe(data => {
-            if (data) {
-              this.currentEmp = data;
-            }
-          }, err => console.log(err));
-          this.sub1.unsubscribe();
         }
       }
     }, err => {
@@ -97,7 +94,6 @@ export class AssessmentComponent implements OnInit {
 
   submitReview() {
     this.show = false;
-    this.currentEmp = undefined;
 
     this.review.emp_id = this.currentEmpID;
     this.review.emp_type = this.currentService.currentEmpType;
@@ -107,18 +103,18 @@ export class AssessmentComponent implements OnInit {
     this.review.c = Number(this.c);
     console.log(this.review);
     this.reviewService.submitReview(this.review).subscribe(res => {
+      console.log("Review -> ", res);
       this.a = this.b = this.c = undefined;
-      this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
-    }, err => console.log(err));
+    }, err => console.log("Review -> ", err));
   }
 
   skipReviewFN() {
     this.show = false;
-    this.currentEmp = undefined;
+    // this.currentEmp = undefined;
 
     this.reviewService.skipReviewFN(Number(localStorage.getItem("assessorID"))).subscribe(res => {
-      this.sub1 = this.currentInterval.subscribe(val => this.currentService.getCurrent());
-    }, err => console.log(err));
+      console.log("Skip -> ", res);
+    }, err => console.log("Skip -> ", err));
   }
 
   ngOnDestroy() {
